@@ -1131,8 +1131,9 @@ MonoBehaviour:
   - {fileID: 481769010}
   - {fileID: 1396995200}
   hoverPoints: []
-  currentWaypoint: 0
-  tilePlaced: 0
+  rootsThreshold: 10
+  minimumRoots: 0
+  rootsPlaced: 1
 --- !u!212 &1062084494
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2066,7 +2067,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061051677}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.488, z: -4.34}
+  m_LocalPosition: {x: 0.5, y: -0.5, z: -3.86}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
