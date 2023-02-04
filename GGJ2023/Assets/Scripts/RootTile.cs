@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 public class RootTile : Tile
 {
     public TileData data;
+    public int rotation;
     //public Sprite sprite;
 
     // public override void RefreshTile(Vector3Int position, ITilemap tilemap)

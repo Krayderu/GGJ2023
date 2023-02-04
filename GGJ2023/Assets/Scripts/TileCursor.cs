@@ -13,6 +13,7 @@ public class TileCursor : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public int currentRotation = 0;
     private Quaternion startRotation;
+    private bool snap = false;
 
 
 	void Start()
@@ -34,10 +35,12 @@ public class TileCursor : MonoBehaviour
         Vector3 point = rootsTilemap.GetMouseWorldPosition();
         Vector3Int tilePos = rootsTilemap.tilemap.WorldToCell(point);
 
-        if (rootsTilemap.IsTileBuildable(tilePos)){
-            spriteRenderer.enabled = true;
+        if (rootsTilemap.IsTileBuildable(tilePos, currentTile, currentRotation)){
+            //spriteRenderer.enabled = true;
+            spriteRenderer.color = new Color(1f,1f,1f,1f);
         } else {
-            spriteRenderer.enabled = false;
+            //spriteRenderer.enabled = false;
+            spriteRenderer.color = new Color(1f,1f,1f,.5f);
         }
 
         if(Input.GetKeyDown(KeyCode.R)){
@@ -50,7 +53,7 @@ public class TileCursor : MonoBehaviour
 
 		if (!locked)
 		{
-            if (!rootsTilemap.IsTileBuildable(tilePos)) return;
+            if (!rootsTilemap.IsTileBuildable(tilePos, currentTile, currentRotation)) return;
 
             newPos = rootsTilemap.tilemap.CellToWorld(tilePos);
             newPos.x += 4;
@@ -67,7 +70,7 @@ public class TileCursor : MonoBehaviour
         // ON CLICK
         if (!Input.GetMouseButtonDown(0)) return;
 
-        rootsTilemap.PlaceTile(currentTile, tilePos, Quaternion.Euler(0, 0, 90*currentRotation));
+        rootsTilemap.PlaceTile(currentTile, tilePos, currentRotation);
 
         currentTile = GameManager.Instance.GetNextTile();
         spriteRenderer.sprite = currentTile.sprite;

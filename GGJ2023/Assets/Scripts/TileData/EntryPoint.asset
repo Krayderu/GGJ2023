@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41167ad823b2c094c88f155ccfef6b73, type: 3}
   m_Name: EntryPoint
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1405925290, guid: f53059c92c2014591a25d701517c2648, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
@@ -34,4 +34,5 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
   m_ColliderType: 1
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 00e226a02afffd646a925042d4122a76, type: 2}
+  rotation: 0

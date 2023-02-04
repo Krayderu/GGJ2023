@@ -20,9 +20,9 @@ public class RootsTilemap : MonoBehaviour
     }
 
 
-    public void PlaceTile(TileData tileData, Vector3Int pos, Quaternion rotation){
+    public void PlaceTile(TileData tileData, Vector3Int pos, int rotation){
     
-        if (!IsTileBuildable(pos)) return;
+        if (!IsTileBuildable(pos, tileData, rotation)) return;
         var path = rootTileset.name;
         Debug.Log(path);
         Sprite[] tileSprites = Resources.LoadAll<Sprite>(path);
@@ -42,11 +42,12 @@ public class RootsTilemap : MonoBehaviour
         RootTile tile = ScriptableObject.CreateInstance<RootTile>();
 		tile.sprite = matchingSprite;
         tile.data = tileData;
+        tile.rotation = rotation;
 
         // place tile
         tilemap.SetTile(pos, tile);
-
-        tilemap.SetTransformMatrix(pos, Matrix4x4.TRS(Vector3.zero, rotation, Vector3.one));
+        // rotate tile
+        tilemap.SetTransformMatrix(pos, Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0, 0, 90*rotation), Vector3.one));
 
         // Add the RootTile component to the TileBase instance
         //RootTile rootTile = tile.gameObject.AddComponent<RootTile>();
@@ -72,7 +73,7 @@ public class RootsTilemap : MonoBehaviour
         }
     }
 
-    public bool IsTileBuildable(Vector3Int tilePos){
+    public bool IsTileBuildable(Vector3Int tilePos, TileData data, int rotation){
         // check if the tile is empty
         if (tilemap.GetTile(tilePos)) return false;
         // don't allow placing tiles above the horizon.
@@ -82,36 +83,37 @@ public class RootsTilemap : MonoBehaviour
         if (tilePos.x < -width/2) return false;
 
         // check that the tile can connect to another root tile
-        // TODO
         bool canConnect = false;
         
         Vector3Int[] neighbors = new Vector3Int[]
         {
-            new Vector3Int(0, 1, 0),
-            new Vector3Int(-1, 0, 0),
-            new Vector3Int(0, -1, 0),
-            new Vector3Int(1, 0, 0),
+            new Vector3Int(0, 1, 0), // up
+            new Vector3Int(1, 0, 0), // right
+            new Vector3Int(0, -1, 0), // bottom
+            new Vector3Int(-1, 0, 0), // left
         };
 
         int[] connectionIndices = new int[]
         {
-            2,
-            1,
-            0,
-            3
+            2, // up -> down
+            3, // right -> left
+            0, // bottom -> up
+            1  // left -> right
         };
 
         for (int i = 0; i < neighbors.Length; i++)
         {
             Vector3Int neighborPos = tilePos + neighbors[i];
             RootTile neighborTile = tilemap.GetTile<RootTile>(neighborPos);
+
             if (neighborTile == null)
             {
                 continue;
             }
 
             bool[] neighborConnections = neighborTile.data.edges;
-            if (neighborConnections[connectionIndices[i]])
+
+            if (neighborConnections[connectionIndices[AddWithWrapAround(i, neighborTile.rotation)]] && data.edges[AddWithWrapAround(i, rotation)])
             {
                 // The current tile and the neighbor tile can be connected
                 canConnect = true;
@@ -119,11 +121,11 @@ public class RootsTilemap : MonoBehaviour
             }
         }
 
-        //if (!canConnect) return false;
+        if (!canConnect) return false;
 
         // foreach (Vector3Int offset in neighbors)
         // {
-        //     Vector3Int neighborPos = currentTilePos + offset;
+        //     Vector3Int neighborPos = tilePos + offset;
         //     TileBase neighborTile = tilemap.GetTile(neighborPos);
         //     if (neighborTile != null)
         //     {
@@ -132,6 +134,11 @@ public class RootsTilemap : MonoBehaviour
         // }
 
         return true;
+    }
+
+    private int AddWithWrapAround(int a, int b)
+    {
+        return (a + b) % 4;
     }
 
 }
