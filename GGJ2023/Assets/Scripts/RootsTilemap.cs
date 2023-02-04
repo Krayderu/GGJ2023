@@ -20,7 +20,7 @@ public class RootsTilemap : MonoBehaviour
     }
 
 
-    public void PlaceTile(TileData tileData, Vector3Int pos){
+    public void PlaceTile(TileData tileData, Vector3Int pos, Quaternion rotation){
     
         if (!IsTileBuildable(pos)) return;
         var path = rootTileset.name;
@@ -45,6 +45,8 @@ public class RootsTilemap : MonoBehaviour
 
         // place tile
         tilemap.SetTile(pos, tile);
+
+        tilemap.SetTransformMatrix(pos, Matrix4x4.TRS(Vector3.zero, rotation, Vector3.one));
 
         // Add the RootTile component to the TileBase instance
         //RootTile rootTile = tile.gameObject.AddComponent<RootTile>();
@@ -117,7 +119,7 @@ public class RootsTilemap : MonoBehaviour
             }
         }
 
-        if (!canConnect) return false;
+        //if (!canConnect) return false;
 
         // foreach (Vector3Int offset in neighbors)
         // {
