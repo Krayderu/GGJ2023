@@ -32,15 +32,14 @@ public class NpcScripts : MonoBehaviour
             }
         }
         else if (currentState == State.HOVER){
-            int rootsPlaced = 10; //TODO
-            MoveTowards(hoverPoints[currentHoverPoint+1]);
-            if (Vector3.Distance(transform.position, hoverPoints[currentHoverPoint+1].position) <= 1){
-                currentHoverPoint++;
-                if (currentHoverPoint == hoverPoints.Length && Vector3.Distance(transform.position, hoverPoints[currentHoverPoint].position)<= 1){
-                    currentHoverPoint = 0;
-                    // Wait (polish)
-                    // Flip sprite
-                }
+            int idx = (currentHoverPoint+1) % hoverPoints.Length;
+            MoveTowards(hoverPoints[idx]);
+            if (Vector3.Distance(transform.position, hoverPoints[idx].position) <= 1){
+                currentHoverPoint = idx;
+                
+                // Wait (polish)
+                // Flip sprite
+                
             if (rootsPlaced >= rootsThreshold && currentHoverPoint == 0){
                 currentState = State.BACK;
                 // TODO Flip sprite horizontally
