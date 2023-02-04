@@ -13,8 +13,4 @@ MonoBehaviour:
   m_Name: CornerRoot
   m_EditorClassIdentifier: 
   sprite: {fileID: -1669597362, guid: f53059c92c2014591a25d701517c2648, type: 3}
-  edges:
-  - isConnectable: 1
-  - isConnectable: 1
-  - isConnectable: 0
-  - isConnectable: 0
+  edges: 01010000

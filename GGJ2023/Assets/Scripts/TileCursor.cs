@@ -10,13 +10,17 @@ public class TileCursor : MonoBehaviour
     private bool locked = false;
 	private Vector3 lastPosition;
     private TileData currentTile;
+    private SpriteRenderer spriteRenderer;
 
 
 	void Start()
 	{
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        Debug.Log(spriteRenderer);
 		lastPosition = transform.position;
         currentTile = GameManager.Instance.GetNextTile();
-        Debug.Log(currentTile);
+        spriteRenderer.sprite = currentTile.sprite;
+        //Debug.Log(currentTile);
 	}
 
     // Update is called once per frame
@@ -25,7 +29,6 @@ public class TileCursor : MonoBehaviour
 
         Vector3 newPos = lastPosition;
         Vector3 point = rootsTilemap.GetMouseWorldPosition();
-        if (point == Vector3.zero) return;
         Vector3Int tilePos = rootsTilemap.tilemap.WorldToCell(point);
 
 		if (!locked)
@@ -50,6 +53,7 @@ public class TileCursor : MonoBehaviour
         rootsTilemap.PlaceTile(currentTile, tilePos);
 
         currentTile = GameManager.Instance.GetNextTile();
+        spriteRenderer.sprite = currentTile.sprite;
     
     }
 
