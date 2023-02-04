@@ -28,8 +28,10 @@ public class RootsTilemap : MonoBehaviour
         Vector3Int tilePos = tilemap.WorldToCell(point);
 
         Debug.Log("PLACING TILE" + tilePos);
-        //Vector3Int pos = new Vector3Int(0,0,-20);
+        if (tilePos.y >= 0) return;
+
         PlaceTile(currentTile, tilePos);
+        
     }
 
     void PlaceTile(Tile tile, Vector3Int pos){
