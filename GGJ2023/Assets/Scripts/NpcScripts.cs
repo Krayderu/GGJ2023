@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class NpcScripts : MonoBehaviour
 {
-    [SerializeField] private Transform StartingPoint;
     [SerializeField] private Transform[] wayPoints;
     [SerializeField] private Transform[] hoverPoints;
 
-    private int currentWaypoint;
-    private int tilePlaced;
+    public int currentWaypoint;
+    public int tilePlaced;
 
 
     
@@ -17,15 +16,15 @@ public class NpcScripts : MonoBehaviour
     private void Update()
     {
         
-        MoveTowards(wayPoints[0]);
-        if(Vector3.Distance(transform.position, wayPoints[0].position) <= 1)
+        MoveTowards(wayPoints[1]);
+        if(Vector3.Distance(transform.position, wayPoints[1].position) <= 1)
         {
             currentWaypoint = 1;
-            HoverAround(wayPoints[0]);
+            HoverAround(wayPoints[1]);
         }
         if (currentWaypoint == 1 && tilePlaced >= 5)
         {
-            MoveTowards(wayPoints[1]);
+            MoveTowards(wayPoints[0]);
         }
     }
 
