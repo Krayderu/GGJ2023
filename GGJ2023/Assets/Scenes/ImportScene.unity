@@ -992,14 +992,14 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 74f1d15f1760d4dbf8056005dbe32488, type: 2}
+    m_Data: {fileID: 11400000, guid: 98d515c511455e742be996906d18b3b9, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 1
-    m_Data: {fileID: -1476300608, guid: f53059c92c2014591a25d701517c2648, type: 3}
+    m_Data: {fileID: -1405925290, guid: f53059c92c2014591a25d701517c2648, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 1
     m_Data:
@@ -2138,6 +2138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rootsTilemap: {fileID: 950158635}
+  currentRotation: 0
 --- !u!1 &2115871992
 GameObject:
   m_ObjectHideFlags: 0
