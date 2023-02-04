@@ -8,7 +8,8 @@ public class NpcScripts : MonoBehaviour
     [SerializeField] private Transform[] wayPoints;
     [SerializeField] private Transform[] hoverPoints;
 
-    private currentWaypoint;
+    private int currentWaypoint;
+    private int tilePlaced;
 
 
     
@@ -17,10 +18,10 @@ public class NpcScripts : MonoBehaviour
     {
         
         MoveTowards(wayPoints[0]);
-        if(Vector3.Distance(transform.position, wayPoints[0].pos) <= 1)
+        if(Vector3.Distance(transform.position, wayPoints[0].position) <= 1)
         {
             currentWaypoint = 1;
-            HoverAround()
+            HoverAround(wayPoints[0]);
         }
         if (currentWaypoint == 1 && tilePlaced >= 5)
         {
