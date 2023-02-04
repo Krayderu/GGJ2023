@@ -1,13 +1,30 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
-
-public class RootTile : MonoBehaviour
+[CreateAssetMenu(fileName = "New RootTile Type", menuName = "Tiles/RootTile Type")]
+public class RootTile : Tile
 {
-    public TileData tileData;
-    public ConnectableEdge[] edges = new ConnectableEdge[4];
+    public TileData data;
+    //public Sprite sprite;
 
-    void Start()
-    {
-        edges = tileData.edges;
-    }
+    // public override void RefreshTile(Vector3Int position, ITilemap tilemap)
+    // {
+    //     // This method is called when the tile is refreshed, for example, when the surrounding tiles are changed
+    // }
+
+    // public override bool StartUp(Vector3Int position, ITilemap tilemap, GameObject go)
+    // {
+    //     // Add the RootTile component to the GameObject
+    //     RootTile rootTile = go.AddComponent<RootTile>();
+
+    //     // Assign the TileData asset to the RootTile component
+    //     rootTile.tileData = tileData;
+
+    //     return true;
+    // }
+
+    // public override void GetTileData(Vector3Int location, ITilemap tileMap, ref TileData tileData)
+    // {
+    //     tileData.sprite = sprite;
+    // }
 }

@@ -10,13 +10,20 @@ public class TileCursor : MonoBehaviour
     private bool locked = false;
 	private Vector3 lastPosition;
     private TileData currentTile;
+    private SpriteRenderer spriteRenderer;
+    public int currentRotation = 0;
+    private Quaternion startRotation;
 
 
 	void Start()
 	{
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        Debug.Log(spriteRenderer);
 		lastPosition = transform.position;
         currentTile = GameManager.Instance.GetNextTile();
-        Debug.Log(currentTile);
+        spriteRenderer.sprite = currentTile.sprite;
+        startRotation = transform.rotation;
+        //Debug.Log(currentTile);
 	}
 
     // Update is called once per frame
@@ -25,8 +32,21 @@ public class TileCursor : MonoBehaviour
 
         Vector3 newPos = lastPosition;
         Vector3 point = rootsTilemap.GetMouseWorldPosition();
-        if (point == Vector3.zero) return;
         Vector3Int tilePos = rootsTilemap.tilemap.WorldToCell(point);
+
+        if (rootsTilemap.IsTileBuildable(tilePos)){
+            spriteRenderer.enabled = true;
+        } else {
+            spriteRenderer.enabled = false;
+        }
+
+        if(Input.GetKeyDown(KeyCode.R)){
+            currentRotation++;
+            if (currentRotation > 3){
+                currentRotation = 0;
+            }
+            transform.Rotate(new Vector3(0, 0, 90));
+        }
 
 		if (!locked)
 		{
@@ -47,9 +67,12 @@ public class TileCursor : MonoBehaviour
         // ON CLICK
         if (!Input.GetMouseButtonDown(0)) return;
 
-        rootsTilemap.PlaceTile(currentTile, tilePos);
+        rootsTilemap.PlaceTile(currentTile, tilePos, Quaternion.Euler(0, 0, 90*currentRotation));
 
         currentTile = GameManager.Instance.GetNextTile();
+        spriteRenderer.sprite = currentTile.sprite;
+        currentRotation = 0;
+        transform.rotation = startRotation;
     
     }
 

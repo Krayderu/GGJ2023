@@ -20,7 +20,7 @@ public class RootsTilemap : MonoBehaviour
     }
 
 
-    public void PlaceTile(TileData tileData, Vector3Int pos){
+    public void PlaceTile(TileData tileData, Vector3Int pos, Quaternion rotation){
     
         if (!IsTileBuildable(pos)) return;
         var path = rootTileset.name;
@@ -39,11 +39,14 @@ public class RootsTilemap : MonoBehaviour
 			}
 		}
 
-        Tile tile = ScriptableObject.CreateInstance<Tile>();
+        RootTile tile = ScriptableObject.CreateInstance<RootTile>();
 		tile.sprite = matchingSprite;
+        tile.data = tileData;
 
-                // place tile
+        // place tile
         tilemap.SetTile(pos, tile);
+
+        tilemap.SetTransformMatrix(pos, Matrix4x4.TRS(Vector3.zero, rotation, Vector3.one));
 
         // Add the RootTile component to the TileBase instance
         //RootTile rootTile = tile.gameObject.AddComponent<RootTile>();
@@ -80,7 +83,53 @@ public class RootsTilemap : MonoBehaviour
 
         // check that the tile can connect to another root tile
         // TODO
-        // Idea: each time we place a root, keep in memory the tiles that can connect and the direction of the connection
+        bool canConnect = false;
+        
+        Vector3Int[] neighbors = new Vector3Int[]
+        {
+            new Vector3Int(0, 1, 0),
+            new Vector3Int(-1, 0, 0),
+            new Vector3Int(0, -1, 0),
+            new Vector3Int(1, 0, 0),
+        };
+
+        int[] connectionIndices = new int[]
+        {
+            2,
+            1,
+            0,
+            3
+        };
+
+        for (int i = 0; i < neighbors.Length; i++)
+        {
+            Vector3Int neighborPos = tilePos + neighbors[i];
+            RootTile neighborTile = tilemap.GetTile<RootTile>(neighborPos);
+            if (neighborTile == null)
+            {
+                continue;
+            }
+
+            bool[] neighborConnections = neighborTile.data.edges;
+            if (neighborConnections[connectionIndices[i]])
+            {
+                // The current tile and the neighbor tile can be connected
+                canConnect = true;
+                break;
+            }
+        }
+
+        //if (!canConnect) return false;
+
+        // foreach (Vector3Int offset in neighbors)
+        // {
+        //     Vector3Int neighborPos = currentTilePos + offset;
+        //     TileBase neighborTile = tilemap.GetTile(neighborPos);
+        //     if (neighborTile != null)
+        //     {
+        //         // Do something with the neighboring tile
+        //     }
+        // }
 
         return true;
     }
