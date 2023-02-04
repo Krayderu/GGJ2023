@@ -5,26 +5,26 @@ using UnityEngine;
 public class NpcScripts : MonoBehaviour
 {
     [SerializeField] private Transform StartingPoint;
-    [SerializeField] private Transform Step1pos;
-    [SerializeField] private Transform Step2pos;
-    [SerializeField] private Transform Step3pos;
+    [SerializeField] private Transform[] wayPoints;
+    [SerializeField] private Transform[] hoverPoints;
 
-    [SerializeField] private bool step1 = false;
-    [SerializeField] private float comfort = 0f;
+    private currentWaypoint;
+
+
     
 
     private void Update()
     {
         
-        MoveTowards(Step1pos);
-        if(Vector3.Distance(transform.position, Step1pos.position) <= 1)
+        MoveTowards(wayPoints[0]);
+        if(Vector3.Distance(transform.position, wayPoints[0].pos) <= 1)
         {
-            step1 = true;
-            HoverAround(Step1pos);
+            currentWaypoint = 1;
+            HoverAround()
         }
-        if (step1 = true && comfort >= 2)
+        if (currentWaypoint == 1 && tilePlaced >= 5)
         {
-            MoveTowards(Step2pos);
+            MoveTowards(wayPoints[1]);
         }
     }
 
