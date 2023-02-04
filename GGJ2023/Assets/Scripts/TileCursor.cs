@@ -9,11 +9,14 @@ public class TileCursor : MonoBehaviour
 
     private bool locked = false;
 	private Vector3 lastPosition;
+    private TileData currentTile;
 
 
 	void Start()
 	{
 		lastPosition = transform.position;
+        currentTile = GameManager.Instance.GetNextTile();
+        Debug.Log(currentTile);
 	}
 
     // Update is called once per frame
@@ -21,12 +24,12 @@ public class TileCursor : MonoBehaviour
     {
 
         Vector3 newPos = lastPosition;
+        Vector3 point = rootsTilemap.GetMouseWorldPosition();
+        if (point == Vector3.zero) return;
+        Vector3Int tilePos = rootsTilemap.tilemap.WorldToCell(point);
 
 		if (!locked)
 		{
-			Vector3 point = rootsTilemap.GetMouseWorldPosition();
-			Vector3Int tilePos = rootsTilemap.tilemap.WorldToCell(point);
-
             if (!rootsTilemap.IsTileBuildable(tilePos)) return;
 
             newPos = rootsTilemap.tilemap.CellToWorld(tilePos);
@@ -40,6 +43,14 @@ public class TileCursor : MonoBehaviour
 			transform.position = newPos;
 			lastPosition = newPos;
 		}
+
+        // ON CLICK
+        if (!Input.GetMouseButtonDown(0)) return;
+
+        rootsTilemap.PlaceTile(currentTile, tilePos);
+
+        currentTile = GameManager.Instance.GetNextTile();
+    
     }
 
 

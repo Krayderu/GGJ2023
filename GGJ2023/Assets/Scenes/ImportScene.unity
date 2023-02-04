@@ -1062,8 +1062,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676e60050160c4b9eb37ec35b4d86296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTile: {fileID: 11400000, guid: c78af62bef8db4f3d98340555bbf8035, type: 2}
-  tilemap: {fileID: 0}
+  rootTileset: {fileID: 2800000, guid: f53059c92c2014591a25d701517c2648, type: 3}
+  tilemap: {fileID: 950158634}
 --- !u!1 &1028768333
 GameObject:
   m_ObjectHideFlags: 0

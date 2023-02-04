@@ -7,7 +7,7 @@ public class RootsTilemap : MonoBehaviour
 {
     public const int width = 8;
     public const int height = 16;
-    [SerializeField] private Tile currentTile;
+    [SerializeField] private Texture2D rootTileset;
     
     public Tilemap tilemap;
 
@@ -19,31 +19,39 @@ public class RootsTilemap : MonoBehaviour
         //tilemap.ClearAllTiles(); // make sure the tilemap is empty
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!Input.GetMouseButtonDown(0)) return;
 
-        // get the position of the tile being clicked on
-        Vector3 point = GetMouseWorldPosition();
-        
-        if (point == Vector3.zero) return;
-
-        Vector3Int tilePos = tilemap.WorldToCell(point);
-
-        
-
-        PlaceTile(currentTile, tilePos);
-    
-    }
-
-    void PlaceTile(Tile tile, Vector3Int pos){
+    public void PlaceTile(TileData tileData, Vector3Int pos){
     
         if (!IsTileBuildable(pos)) return;
-        
-        // place tile
+        var path = rootTileset.name;
+        Debug.Log(path);
+        Sprite[] tileSprites = Resources.LoadAll<Sprite>(path);
+
+        Sprite matchingSprite = tileSprites[0];
+
+		// find the sprite
+		foreach (Sprite sprite in tileSprites)
+		{
+			if (sprite.name == tileData.sprite.name)
+			{
+				matchingSprite = sprite;
+				break;
+			}
+		}
+
+        Tile tile = ScriptableObject.CreateInstance<Tile>();
+		tile.sprite = matchingSprite;
+
+                // place tile
         tilemap.SetTile(pos, tile);
-        
+
+        // Add the RootTile component to the TileBase instance
+        //RootTile rootTile = tile.gameObject.AddComponent<RootTile>();
+
+        // Assign the TileData asset to the RootTile component
+        //rootTile.tileData = tileData;
+
+
     }
 
     public Vector3 GetMouseWorldPosition()
@@ -69,6 +77,10 @@ public class RootsTilemap : MonoBehaviour
         if (tilePos.y < -height) return false;
         if (tilePos.x >= width/2) return false;
         if (tilePos.x < -width/2) return false;
+
+        // check that the tile can connect to another root tile
+        // TODO
+        // Idea: each time we place a root, keep in memory the tiles that can connect and the direction of the connection
 
         return true;
     }
