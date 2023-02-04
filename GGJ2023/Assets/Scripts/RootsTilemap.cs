@@ -5,14 +5,15 @@ using UnityEngine.Tilemaps;
 
 public class RootsTilemap : MonoBehaviour
 {
-    public Tile currentTile;
-    public Tilemap tilemap;
+    [SerializeField] private Tile currentTile;
+    private Tilemap tilemap;
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(gameObject);
-        //tilemap.ClearAllTiles();
+        tilemap = gameObject.GetComponent<Tilemap>();
+        Debug.Log(tilemap);
+        tilemap.ClearAllTiles(); // make sure the tilemap is empty
     }
 
     // Update is called once per frame
@@ -22,12 +23,12 @@ public class RootsTilemap : MonoBehaviour
 
         // get the position of the tile being clicked on
         Vector3 point = GetMouseWorldPosition();
-        //Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
         if (point == Vector3.zero) return;
-        Debug.Log(point);
+
         Vector3Int tilePos = tilemap.WorldToCell(point);
 
-        Debug.Log("PLACING TILE" + tilePos);
+        // don't allow placing tiles above the horizon.
         if (tilePos.y >= 0) return;
 
         PlaceTile(currentTile, tilePos);
