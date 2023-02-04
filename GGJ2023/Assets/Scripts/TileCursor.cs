@@ -11,6 +11,8 @@ public class TileCursor : MonoBehaviour
 	private Vector3 lastPosition;
     private TileData currentTile;
     private SpriteRenderer spriteRenderer;
+    public int currentRotation = 0;
+    private Quaternion startRotation;
 
 
 	void Start()
@@ -20,6 +22,7 @@ public class TileCursor : MonoBehaviour
 		lastPosition = transform.position;
         currentTile = GameManager.Instance.GetNextTile();
         spriteRenderer.sprite = currentTile.sprite;
+        startRotation = transform.rotation;
         //Debug.Log(currentTile);
 	}
 
@@ -30,6 +33,20 @@ public class TileCursor : MonoBehaviour
         Vector3 newPos = lastPosition;
         Vector3 point = rootsTilemap.GetMouseWorldPosition();
         Vector3Int tilePos = rootsTilemap.tilemap.WorldToCell(point);
+
+        if (rootsTilemap.IsTileBuildable(tilePos)){
+            spriteRenderer.enabled = true;
+        } else {
+            spriteRenderer.enabled = false;
+        }
+
+        if(Input.GetKeyDown(KeyCode.R)){
+            currentRotation++;
+            if (currentRotation > 3){
+                currentRotation = 0;
+            }
+            transform.Rotate(new Vector3(0, 0, 90));
+        }
 
 		if (!locked)
 		{
@@ -54,6 +71,8 @@ public class TileCursor : MonoBehaviour
 
         currentTile = GameManager.Instance.GetNextTile();
         spriteRenderer.sprite = currentTile.sprite;
+        currentRotation = 0;
+        transform.rotation = startRotation;
     
     }
 
