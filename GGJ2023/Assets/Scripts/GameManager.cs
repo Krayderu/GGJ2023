@@ -25,6 +25,11 @@ public class GameManager : MonoBehaviour {
             Instance = this; 
         }
 
-        Debug.Log(tileTypes);
+        //Debug.Log(tileTypes);
+    }
+
+    public TileData GetNextTile(){
+        int randomIndex = Random.Range(0, tileTypes.Length);
+        return tileTypes[randomIndex];
     }
 }

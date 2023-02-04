@@ -12,7 +12,7 @@ public class RootsTilemap : MonoBehaviour
     void Start()
     {
         tilemap = gameObject.GetComponent<Tilemap>();
-        Debug.Log(tilemap);
+        //Debug.Log(tilemap);
         tilemap.ClearAllTiles(); // make sure the tilemap is empty
     }
 
@@ -32,16 +32,16 @@ public class RootsTilemap : MonoBehaviour
         if (tilePos.y >= 0) return;
 
         PlaceTile(currentTile, tilePos);
-        
+    
     }
 
     void PlaceTile(Tile tile, Vector3Int pos){
         // check if the tile is empty
-        if (!tilemap.GetTile(pos))
-        {
-            // place tile
-            tilemap.SetTile(pos, tile);
-        }
+        if (tilemap.GetTile(pos)) return;
+        
+        // place tile
+        tilemap.SetTile(pos, tile);
+        
     }
 
     public Vector3 GetMouseWorldPosition()
