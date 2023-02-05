@@ -72,6 +72,10 @@ public class NpcScripts : MonoBehaviour
                     // Flip sprite
                     sr.flipX = true;
                     // show cart
+                    if (transform.childCount > 0){
+                        var child = transform.GetChild(0);
+                        child.SetActive(true);
+                    }
                 }
             }
         }
@@ -86,6 +90,11 @@ public class NpcScripts : MonoBehaviour
                     currentState = State.HOME;
                     // fill room
                     fillRoom(roomTag);
+                    if (transform.childCount > 0){
+                        var child = transform.GetChild(0);
+                        child.SetActive(false);
+                    }
+                    
                 }
             }
         }
