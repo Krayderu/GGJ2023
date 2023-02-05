@@ -59,7 +59,14 @@ public class NpcScripts : MonoBehaviour
 
         }
         else if (currentState == State.WITHSTUFF){
-            
+             MoveTowards(wayPoints[currentWaypoint+1]);
+            if (Vector3.Distance(transform.position, wayPoints[currentWaypoint+1].position) <= 1){
+                currentWaypoint++;
+                if (currentWaypoint == wayPoints.Length - 1){
+                    //Enable Sprites in the room
+                    //Change Materials for the room
+                }
+            }
         }
     }
 
