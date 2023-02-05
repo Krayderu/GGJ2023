@@ -8,6 +8,7 @@ public class RootsTilemap : MonoBehaviour
     public const int width = 8;
     public const int height = 16;
     [SerializeField] private Texture2D rootTileset;
+    [SerializeField] private Tilemap waterTilemap;
     
     public Tilemap tilemap;
 
@@ -15,14 +16,11 @@ public class RootsTilemap : MonoBehaviour
     void Start()
     {
         tilemap = gameObject.GetComponent<Tilemap>();
-        //Debug.Log(tilemap);
-        //tilemap.ClearAllTiles(); // make sure the tilemap is empty
     }
 
-
     public void PlaceTile(TileData tileData, Vector3Int pos, int rotation){
-    
         if (!IsTileBuildable(pos, tileData, rotation)) return;
+
         var path = rootTileset.name;
         Debug.Log(path);
         Sprite[] tileSprites = Resources.LoadAll<Sprite>(path);
@@ -30,10 +28,8 @@ public class RootsTilemap : MonoBehaviour
         Sprite matchingSprite = tileSprites[0];
 
 		// find the sprite
-		foreach (Sprite sprite in tileSprites)
-		{
-			if (sprite.name == tileData.sprite.name)
-			{
+		foreach (Sprite sprite in tileSprites){
+			if (sprite.name == tileData.sprite.name){
 				matchingSprite = sprite;
 				break;
 			}
@@ -48,18 +44,10 @@ public class RootsTilemap : MonoBehaviour
         tilemap.SetTile(pos, tile);
         // rotate tile
         tilemap.SetTransformMatrix(pos, Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0, 0, 90*rotation), Vector3.one));
-
-        // Add the RootTile component to the TileBase instance
-        //RootTile rootTile = tile.gameObject.AddComponent<RootTile>();
-
-        // Assign the TileData asset to the RootTile component
-        //rootTile.tileData = tileData;
-
-
     }
 
-    public Vector3 GetMouseWorldPosition()
-    {
+    public Vector3 GetMouseWorldPosition(){
+        // FIXME: I should be in TileCursor.cs
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane plane = new Plane(Camera.main.transform.forward, transform.position);
         if (plane.Raycast(ray, out float distance))
@@ -81,6 +69,8 @@ public class RootsTilemap : MonoBehaviour
         if (tilePos.y < -height) return false;
         if (tilePos.x >= width/2) return false;
         if (tilePos.x < -width/2) return false;
+        
+        if(!GameManager.Instance.CanPay()) return false;
 
         // check that the tile can connect to another root tile
         bool canConnect = false;
@@ -101,8 +91,7 @@ public class RootsTilemap : MonoBehaviour
             1  // left -> right
         };
 
-        for (int i = 0; i < neighbors.Length; i++)
-        {
+        for (int i = 0; i < neighbors.Length; i++){
             Vector3Int neighborPos = tilePos + neighbors[i];
             RootTile neighborTile = tilemap.GetTile<RootTile>(neighborPos);
 
@@ -113,8 +102,10 @@ public class RootsTilemap : MonoBehaviour
 
             bool[] neighborConnections = neighborTile.data.edges;
 
-            if (neighborConnections[connectionIndices[AddWithWrapAround(i, neighborTile.rotation)]] && data.edges[AddWithWrapAround(i, rotation)])
-            {
+            int neighborIndex = (i + neighborTile.rotation) % 4;
+            int selfIndex = (i + rotation) % 4;
+
+            if (neighborConnections[connectionIndices[neighborIndex]] && data.edges[selfIndex]){
                 // The current tile and the neighbor tile can be connected
                 canConnect = true;
                 break;
@@ -123,22 +114,27 @@ public class RootsTilemap : MonoBehaviour
 
         if (!canConnect) return false;
 
-        // foreach (Vector3Int offset in neighbors)
-        // {
-        //     Vector3Int neighborPos = tilePos + offset;
-        //     TileBase neighborTile = tilemap.GetTile(neighborPos);
-        //     if (neighborTile != null)
-        //     {
-        //         // Do something with the neighboring tile
-        //     }
-        // }
-
         return true;
     }
 
-    private int AddWithWrapAround(int a, int b)
-    {
-        return (a + b) % 4;
+    public int GetNumberOfRoots(){
+        int roots = 0;
+        foreach (var position in tilemap.cellBounds.allPositionsWithin) {
+            if (tilemap.HasTile(position)) {
+                roots++;
+            }
+        }
+        return roots;
+    }
+
+    public int GetNumberOfWateredRoots(){
+        int wateredRoots = 0;
+        foreach (var position in tilemap.cellBounds.allPositionsWithin) {
+            if (tilemap.HasTile(position) && waterTilemap.HasTile(position)) {
+                wateredRoots++;
+            }
+        }
+        return wateredRoots;
     }
 
 }
