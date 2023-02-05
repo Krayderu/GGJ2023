@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18349943, g: 0.22905919, b: 0.30574673, a: 1}
+  m_IndirectSpecularColor: {r: 0.18349968, g: 0.2290597, b: 0.30574813, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3437,9 +3437,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragMargin: 10
-  dragSpeed: 10
-  maxHeight: 34
-  minHeight: -500
+  dragSpeed: 20
+  maxHeight: 50
+  minHeight: -100
 --- !u!114 &1158840165
 MonoBehaviour:
   m_ObjectHideFlags: 0
