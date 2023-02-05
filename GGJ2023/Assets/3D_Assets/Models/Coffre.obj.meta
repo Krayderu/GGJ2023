@@ -3,7 +3,17 @@ guid: eec0c55eb25e8ca4b914fe32c8db1ce0
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: coffre_baseMat
+    second: {fileID: 2100000, guid: 946da8a12c4d82a4faccebc8f1e6fc84, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pCube59_coffreMat
+    second: {fileID: 2100000, guid: 946da8a12c4d82a4faccebc8f1e6fc84, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -13,6 +13,7 @@ public class TileCursor : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public int currentRotation = 0;
     private Quaternion startRotation;
+    private bool snap = false;
 
 
 	void Start()
@@ -45,18 +46,18 @@ public class TileCursor : MonoBehaviour
         // detect scroll
         // Vector2 vec = Input.Mouse.current.scroll.ReadValue();
         // var scroll = vec.y;
-        // if(Input.GetAxis("Mouse ScrollWheel") > 0)
-        // {
-        //     //wheel goes up
-        //     currentRotation = (currentRotation-1) % 4;
-        //     transform.Rotate(new Vector3(0, 0, -90));
-        // }
-        // else if(Input.GetAxis("Mouse ScrollWheel") < 0)
-        // {
-        //     //wheel goes down
-        //     currentRotation = (currentRotation+1) % 4;
-        //     transform.Rotate(new Vector3(0, 0, 90));
-        // }
+        if(Input.GetAxisRaw("Mouse ScrollWheel") > 0)
+        {
+            //wheel goes up
+            currentRotation = (currentRotation-1) % 4;
+            transform.Rotate(new Vector3(0, 0, -90));
+        }
+        else if(Input.GetAxisRaw("Mouse ScrollWheel") < 0)
+        {
+            //wheel goes down
+            currentRotation = (currentRotation+1) % 4;
+            transform.Rotate(new Vector3(0, 0, 90));
+        }
 
         if(Input.GetKeyDown(KeyCode.R)){
             currentRotation++;
@@ -71,8 +72,8 @@ public class TileCursor : MonoBehaviour
             if (!rootsTilemap.IsTileBuildable(tilePos, currentTile, currentRotation)) return;
 
             newPos = rootsTilemap.tilemap.CellToWorld(tilePos);
-            newPos.x += 2;
-            newPos.y += 2;
+            newPos.x += 4;
+            newPos.y += 4;
             newPos.z = rootsTilemap.transform.position.z;
 		}
 
@@ -84,8 +85,6 @@ public class TileCursor : MonoBehaviour
 
         // ON CLICK
         if (!Input.GetMouseButtonDown(0)) return;
-
-        GameManager.Instance.Pay();
 
         rootsTilemap.PlaceTile(currentTile, tilePos, currentRotation);
 
