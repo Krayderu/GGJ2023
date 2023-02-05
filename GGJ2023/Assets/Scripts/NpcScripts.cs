@@ -15,21 +15,32 @@ public class NpcScripts : MonoBehaviour
     private int currentHoverPoint = 0;
     private State currentState = State.GOING;
     public int rootsPlaced = 1;
+    private SpriteRenderer sr;
+    //private bool flipping = false;
+    //private int facingDirection = 1;
+    //private Quaternion lastRotation;
 
+    private void Start(){
+        sr = GetComponent<SpriteRenderer>();
+        //lastRotation = transform.rotation;
+    }
     
 
     private void Update()
     {
+        
         if(rootsPlaced < minimumRoots) return;
 
         if (currentState == State.GOING){
-            MoveTowards(wayPoints[currentWaypoint+1]);
-            if (Vector3.Distance(transform.position, wayPoints[currentWaypoint+1].position) <= 1){
+            var nextWaypoint = wayPoints[currentWaypoint+1];
+            MoveTowards(nextWaypoint);
+            if (Vector3.Distance(transform.position, nextWaypoint.position) <= 1){
                 currentWaypoint++;
                 if (currentWaypoint == wayPoints.Length - 1){
                     currentState = State.HOVER;
                 }
             }
+            //if (Math.sign(facingDirection) == Math.sign(transform.position - nextWaypoint))
         }
         else if (currentState == State.HOVER){
             int idx = (currentHoverPoint+1) % hoverPoints.Length;
@@ -43,6 +54,7 @@ public class NpcScripts : MonoBehaviour
             if (rootsPlaced >= rootsThreshold && currentHoverPoint == 0){
                 currentState = State.BACK;
                 // TODO Flip sprite horizontally
+                sr.flipX = false;
             }
             }
         }
@@ -54,26 +66,15 @@ public class NpcScripts : MonoBehaviour
                     currentState = State.WITHSTUFF;
                     // Wait (polish)
                     // Flip sprite
+                    sr.flipX = true;
                 }
             }
 
         }
         else if (currentState == State.WITHSTUFF){
-            
+
         }
     }
-
-        
-        //MoveTowards(wayPoints[1]);
-        // if(Vector3.Distance(transform.position, wayPoints[1].position) <= 1 %% )
-        // {
-        //     currentWaypoint = 1;
-        //     HoverAround();
-        // }
-        // if (currentWaypoint == 1 && tilePlaced >= 5)
-        // {
-        //     MoveTowards(wayPoints[0]);
-        // }
     
 
     private void MoveTowards(Transform pos)
@@ -86,4 +87,9 @@ public class NpcScripts : MonoBehaviour
     {
         //move in between a set number of points
     }
+
+    // private void Flip(){
+    //     transform.rotation = Quaternion.Lerp(transform.rotation, lastRotation.Euler(0, 180, 0), timeCount * speed);
+    //     timeCount = timeCount + Time.deltaTime;
+    // }
 }

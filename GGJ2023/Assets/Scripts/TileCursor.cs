@@ -13,6 +13,7 @@ public class TileCursor : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public int currentRotation = 0;
     private Quaternion startRotation;
+    private bool snap = false;
 
 
 	void Start()
@@ -37,9 +38,17 @@ public class TileCursor : MonoBehaviour
         if (rootsTilemap.IsTileBuildable(tilePos, currentTile, currentRotation)){
             //spriteRenderer.enabled = true;
             spriteRenderer.color = new Color(1f,1f,1f,1f);
+            snap = true;
         } else {
             //spriteRenderer.enabled = false;
             spriteRenderer.color = new Color(1f,1f,1f,.5f);
+            snap = false;
+        }
+
+        if (point.y > 0){
+            spriteRenderer.enabled = false;
+        } else {
+            spriteRenderer.enabled = true;
         }
 
         // detect scroll
@@ -58,7 +67,7 @@ public class TileCursor : MonoBehaviour
         //     transform.Rotate(new Vector3(0, 0, 90));
         // }
 
-        if(Input.GetKeyDown(KeyCode.R)){
+        if(Input.GetMouseButtonDown(1)){ // right click
             currentRotation++;
             if (currentRotation > 3){
                 currentRotation = 0;
@@ -66,24 +75,28 @@ public class TileCursor : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, 90));
         }
 
-		if (!locked)
+		if (snap && !locked)
 		{
-            if (!rootsTilemap.IsTileBuildable(tilePos, currentTile, currentRotation)) return;
-
             newPos = rootsTilemap.tilemap.CellToWorld(tilePos);
             newPos.x += 2;
             newPos.y += 2;
             newPos.z = rootsTilemap.transform.position.z;
+
+            if (transform.position != newPos)
+            {
+                transform.position = newPos;
+                lastPosition = newPos;
+            }
 		}
 
-		if (transform.position != newPos)
-		{
-			transform.position = newPos;
-			lastPosition = newPos;
-		}
+        if (!snap && !locked){
+            var mousePos = rootsTilemap.GetMouseWorldPosition();
+            transform.position = mousePos;
+            lastPosition = mousePos;
+        }
 
         // ON CLICK
-        if (!Input.GetMouseButtonDown(0)) return;
+        if (!Input.GetMouseButtonDown(0) || !GameManager.Instance.CanPay()) return;
 
         GameManager.Instance.Pay();
 

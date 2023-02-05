@@ -22,7 +22,6 @@ public class RootsTilemap : MonoBehaviour
         if (!IsTileBuildable(pos, tileData, rotation)) return;
 
         var path = rootTileset.name;
-        Debug.Log(path);
         Sprite[] tileSprites = Resources.LoadAll<Sprite>(path);
 
         Sprite matchingSprite = tileSprites[0];
