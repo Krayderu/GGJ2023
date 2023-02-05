@@ -299,7 +299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30068972}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.033580672, y: 8.5138855, z: 6.87}
+  m_LocalPosition: {x: -0.033580672, y: 13.65, z: 6.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -330,7 +330,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58670802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.033580672, y: 8.5138855, z: 6.87}
+  m_LocalPosition: {x: -0.033580672, y: 24.02, z: 6.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -672,6 +672,7 @@ MonoBehaviour:
   rootsThreshold: 25
   minimumRoots: 15
   roomTag: Room2
+  roomHeight: {fileID: 30068973}
 --- !u!212 &210058651
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1337,7 +1338,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 481769009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.42, y: 2.24, z: 13.18}
+  m_LocalPosition: {x: -42.08, y: 2.24, z: 13.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2512,6 +2513,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 00e226a02afffd646a925042d4122a76, type: 2}
   - {fileID: 11400000, guid: 6d78e745d32b7254c83eacbd1b7bf98b, type: 2}
   rootsTilemap: {fileID: 1152777100}
+  cameraController: {fileID: 0}
   water: 100
   rootCost: 10
 --- !u!4 &795575221
@@ -2683,7 +2685,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898684714}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.033580672, y: 8.5138855, z: 6.87}
+  m_LocalPosition: {x: -0.033580672, y: 5.95, z: 6.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3058,7 +3060,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1047105573}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.033580672, y: 8.5138855, z: 6.87}
+  m_LocalPosition: {x: 2.16, y: 33.57, z: 6.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3107,8 +3109,9 @@ MonoBehaviour:
   - {fileID: 1680602823}
   - {fileID: 1396995200}
   rootsThreshold: 10
-  minimumRoots: 0
+  minimumRoots: 5
   roomTag: Room1
+  roomHeight: {fileID: 898684715}
 --- !u!212 &1062084494
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4292,9 +4295,10 @@ MonoBehaviour:
   wayPoints:
   - {fileID: 481769010}
   hoverPoints: []
-  rootsThreshold: 10
-  minimumRoots: 15
-  roomTag: Room3
+  rootsThreshold: 100
+  minimumRoots: 55
+  roomTag: Room4
+  roomHeight: {fileID: 1047105574}
 --- !u!212 &1433083361
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5335,9 +5339,10 @@ MonoBehaviour:
   wayPoints:
   - {fileID: 481769010}
   hoverPoints: []
-  rootsThreshold: 10
-  minimumRoots: 15
+  rootsThreshold: 50
+  minimumRoots: 30
   roomTag: Room3
+  roomHeight: {fileID: 58670803}
 --- !u!212 &1864279327
 SpriteRenderer:
   m_ObjectHideFlags: 0
