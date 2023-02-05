@@ -142,6 +142,7 @@ public class RootsTilemap : MonoBehaviour
                 roots++;
             }
         }
+        return roots;
     }
 
     public int GetNumberOfWateredRoots(){
@@ -151,6 +152,7 @@ public class RootsTilemap : MonoBehaviour
                 wateredRoots++;
             }
         }
+        return wateredRoots;
     }
 
 }
