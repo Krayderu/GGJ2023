@@ -85,6 +85,8 @@ public class TileCursor : MonoBehaviour
         // ON CLICK
         if (!Input.GetMouseButtonDown(0)) return;
 
+        GameManager.Instance.Pay();
+
         rootsTilemap.PlaceTile(currentTile, tilePos, currentRotation);
 
         currentTile = GameManager.Instance.GetNextTile();

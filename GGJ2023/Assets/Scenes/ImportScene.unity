@@ -1151,6 +1151,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a5e3b46e6ed5d91468d70ec91bfd0672, type: 2}
   - {fileID: 11400000, guid: 00e226a02afffd646a925042d4122a76, type: 2}
   - {fileID: 11400000, guid: 6d78e745d32b7254c83eacbd1b7bf98b, type: 2}
+  rootsTilemap: {fileID: 950158635}
+  water: 100
+  rootCost: 10
 --- !u!4 &795575221
 Transform:
   m_ObjectHideFlags: 0
@@ -1425,6 +1428,26 @@ Tilemap:
   m_GameObject: {fileID: 950158631}
   m_Enabled: 1
   m_Tiles:
+  - first: {x: -1, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 2
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -1, y: -2, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 2
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: -1, y: -1, z: 0}
     second:
       serializedVersion: 2
@@ -1437,19 +1460,19 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 98d515c511455e742be996906d18b3b9, type: 2}
+  - m_RefCount: 2
+    m_Data: {fileID: 11400000, guid: c78af62bef8db4f3d98340555bbf8035, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -1405925290, guid: f53059c92c2014591a25d701517c2648, type: 3}
+  - m_RefCount: 2
+    m_Data: {fileID: 1572599970, guid: f53059c92c2014591a25d701517c2648, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 1
+  - m_RefCount: 3
     m_Data:
       e00: 1
       e01: 0
@@ -1472,7 +1495,7 @@ Tilemap:
     m_Data: {r: 3.5394e-41, g: 3.5394e-41, b: 3.5394e-41, a: 3.5394e-41}
   - m_RefCount: 0
     m_Data: {r: 6.5385e-41, g: 6.5385e-41, b: 6.5385e-41, a: 6.5385e-41}
-  - m_RefCount: 1
+  - m_RefCount: 3
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -1511,6 +1534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rootTileset: {fileID: 2800000, guid: f53059c92c2014591a25d701517c2648, type: 3}
+  waterTilemap: {fileID: 166102403}
   tilemap: {fileID: 950158634}
 --- !u!1 &1028768333
 GameObject:
