@@ -8,6 +8,7 @@ public class RootsTilemap : MonoBehaviour
     public const int width = 8;
     public const int height = 16;
     [SerializeField] private Texture2D rootTileset;
+    [SerializeField] private Tilemap waterTilemap;
     
     public Tilemap tilemap;
 
@@ -113,7 +114,10 @@ public class RootsTilemap : MonoBehaviour
 
             bool[] neighborConnections = neighborTile.data.edges;
 
-            if (neighborConnections[connectionIndices[AddWithWrapAround(i, neighborTile.rotation)]] && data.edges[AddWithWrapAround(i, rotation)])
+            int neighborIndex = AddWithWrapAround(i, neighborTile.rotation);
+            int selfIndex = AddWithWrapAround(i, rotation);
+
+            if (neighborConnections[connectionIndices[neighborIndex]] && data.edges[selfIndex])
             {
                 // The current tile and the neighbor tile can be connected
                 canConnect = true;
@@ -123,22 +127,30 @@ public class RootsTilemap : MonoBehaviour
 
         if (!canConnect) return false;
 
-        // foreach (Vector3Int offset in neighbors)
-        // {
-        //     Vector3Int neighborPos = tilePos + offset;
-        //     TileBase neighborTile = tilemap.GetTile(neighborPos);
-        //     if (neighborTile != null)
-        //     {
-        //         // Do something with the neighboring tile
-        //     }
-        // }
-
         return true;
     }
 
     private int AddWithWrapAround(int a, int b)
     {
         return (a + b) % 4;
+    }
+
+    public int GetNumberOfRoots(){
+        int roots = 0;
+        foreach (var position in tilemap.cellBounds.allPositionsWithin) {
+            if (tilemap.HasTile(position)) {
+                roots++;
+            }
+        }
+    }
+
+    public int GetNumberOfWateredRoots(){
+        int wateredRoots = 0;
+        foreach (var position in tilemap.cellBounds.allPositionsWithin) {
+            if (tilemap.HasTile(position) && waterTilemap.HasTile(position)) {
+                wateredRoots++;
+            }
+        }
     }
 
 }
