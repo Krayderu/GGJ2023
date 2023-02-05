@@ -9,7 +9,7 @@ public class NpcScripts : MonoBehaviour
     [SerializeField] private Transform[] wayPoints;
     [SerializeField] private Transform[] hoverPoints;
     [SerializeField] private int rootsThreshold = 10;
-    [SerializeField] private int minimumRoots = 0;
+    [SerializeField] private int minimumRoots = 15;
     [SerializeField] private string roomTag;
     [SerializeField] private Transform roomHeight;
 

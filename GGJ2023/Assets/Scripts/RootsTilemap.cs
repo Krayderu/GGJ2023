@@ -16,6 +16,7 @@ public class RootsTilemap : MonoBehaviour
     void Start()
     {
         tilemap = gameObject.GetComponent<Tilemap>();
+        Debug.Log(GetNumberOfRoots());
     }
 
     public void PlaceTile(TileData tileData, Vector3Int pos, int rotation){
@@ -119,7 +120,7 @@ public class RootsTilemap : MonoBehaviour
     public int GetNumberOfRoots(){
         int roots = 0;
         foreach (var position in tilemap.cellBounds.allPositionsWithin) {
-            if (tilemap.HasTile(position)) {
+            if (tilemap.GetTile<RootTile>(position)) {
                 roots++;
             }
         }
