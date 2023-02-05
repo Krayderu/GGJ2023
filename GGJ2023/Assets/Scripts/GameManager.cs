@@ -60,4 +60,8 @@ public class GameManager : MonoBehaviour {
         }
         water = water - rootCost;
     }
+
+    public int GetNumberOfRoots(){
+        return rootsTilemap.GetNumberOfRoots();
+    }
 }

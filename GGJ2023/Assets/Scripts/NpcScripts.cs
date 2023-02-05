@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum State {GOING, HOVER, BACK, WITHSTUFF};
+enum State {GOING, HOVER, BACK, WITHSTUFF, HOME};
 
 public class NpcScripts : MonoBehaviour
 {
@@ -10,11 +10,12 @@ public class NpcScripts : MonoBehaviour
     [SerializeField] private Transform[] hoverPoints;
     [SerializeField] private int rootsThreshold = 10;
     [SerializeField] private int minimumRoots = 0;
+    [SerializeField] private string roomTag;
 
     private int currentWaypoint = 0;
     private int currentHoverPoint = 0;
     private State currentState = State.GOING;
-    public int rootsPlaced = 1;
+    //public int rootsPlaced = 1;
     private SpriteRenderer sr;
     //private bool flipping = false;
     //private int facingDirection = 1;
@@ -28,6 +29,7 @@ public class NpcScripts : MonoBehaviour
 
     private void Update()
     {
+        int rootsPlaced = GameManager.Instance.GetNumberOfRoots();
         
         if(rootsPlaced < minimumRoots) return;
 
@@ -50,12 +52,11 @@ public class NpcScripts : MonoBehaviour
                 
                 // Wait (polish)
                 // Flip sprite
-                
-            if (rootsPlaced >= rootsThreshold && currentHoverPoint == 0){
-                currentState = State.BACK;
-                // TODO Flip sprite horizontally
-                sr.flipX = false;
-            }
+                if (rootsPlaced >= rootsThreshold && currentHoverPoint == 0){
+                    currentState = State.BACK;
+                    // TODO Flip sprite horizontally
+                    sr.flipX = false;
+                }
             }
         }
         else if (currentState == State.BACK){
@@ -67,12 +68,32 @@ public class NpcScripts : MonoBehaviour
                     // Wait (polish)
                     // Flip sprite
                     sr.flipX = true;
+                    // show cart
                 }
             }
-
         }
         else if (currentState == State.WITHSTUFF){
-
+            
+            // do the same as GOING
+            var nextWaypoint = wayPoints[currentWaypoint+1];
+            MoveTowards(nextWaypoint);
+            if (Vector3.Distance(transform.position, nextWaypoint.position) <= 1){
+                currentWaypoint++;
+                if (currentWaypoint == wayPoints.Length - 1){
+                    currentState = State.HOME;
+                    // fill room
+                    fillRoom(roomTag);
+                }
+            }
+        }
+        else if (currentState == State.HOME){
+            // Hover
+            int idx = (currentHoverPoint+1) % hoverPoints.Length;
+            MoveTowards(hoverPoints[idx]);
+            if (Vector3.Distance(transform.position, hoverPoints[idx].position) <= 1){
+                currentHoverPoint = idx;
+                // FOREVAH
+            }
         }
     }
     
@@ -83,9 +104,23 @@ public class NpcScripts : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, destination, Time.deltaTime);
     }
 
-    private void HoverAround()
-    {
-        //move in between a set number of points
+
+    private void fillRoom(string tag){
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag(tag)){
+            var materialChanger = obj.GetComponent<MaterialToChangeTo>();
+            if (!materialChanger) return;
+
+            var meshRenderer = obj.GetComponent<MeshRenderer>();
+            if (meshRenderer) meshRenderer.materials[0] = materialChanger.materialToChangeTo;
+
+            //obj.enabled = true;
+            var sr = obj.GetComponent<SpriteRenderer>();
+            if (sr){
+                sr.enabled = true;
+                var light = obj.transform.GetChild(0).gameObject;
+                if (light) light.SetActive(true);
+            }
+        }
     }
 
     // private void Flip(){
