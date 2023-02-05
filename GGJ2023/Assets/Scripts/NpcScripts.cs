@@ -73,7 +73,7 @@ public class NpcScripts : MonoBehaviour
                     sr.flipX = true;
                     // show cart
                     if (transform.childCount > 0){
-                        var child = transform.GetChild(0);
+                        var child = transform.GetChild(0).gameObject;
                         child.SetActive(true);
                     }
                 }
@@ -91,7 +91,7 @@ public class NpcScripts : MonoBehaviour
                     // fill room
                     fillRoom(roomTag);
                     if (transform.childCount > 0){
-                        var child = transform.GetChild(0);
+                        var child = transform.GetChild(0).gameObject;
                         child.SetActive(false);
                     }
                     
