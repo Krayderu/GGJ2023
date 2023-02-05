@@ -18,7 +18,7 @@ public class NpcScripts : MonoBehaviour
     //public int rootsPlaced = 1;
     private SpriteRenderer sr;
     //private bool flipping = false;
-    //private int facingDirection = 1;
+    private int facingDirection = 1;
     //private Quaternion lastRotation;
 
     //private Dictionary<string, Material> materials
@@ -45,12 +45,16 @@ public class NpcScripts : MonoBehaviour
                     currentState = State.HOVER;
                 }
             }
-            //if (Math.sign(facingDirection) == Math.sign(transform.position - nextWaypoint))
+            if (Mathf.Sign(facingDirection) != Mathf.Sign(nextWaypoint.position.x - transform.position.x)){
+                facingDirection *= -1;
+                sr.flipX = facingDirection > 0;
+            }
         }
         else if (currentState == State.HOVER){
             int idx = (currentHoverPoint+1) % hoverPoints.Length;
-            MoveTowards(hoverPoints[idx]);
-            if (Vector3.Distance(transform.position, hoverPoints[idx].position) <= 1){
+            var nextWaypoint = hoverPoints[idx];
+            MoveTowards(nextWaypoint);
+            if (Vector3.Distance(transform.position, nextWaypoint.position) <= 1){
                 currentHoverPoint = idx;
                 
                 // Wait (polish)
@@ -58,13 +62,18 @@ public class NpcScripts : MonoBehaviour
                 if (rootsPlaced >= rootsThreshold && currentHoverPoint == 0){
                     currentState = State.BACK;
                     // TODO Flip sprite horizontally
-                    sr.flipX = false;
+                    //sr.flipX = false;
                 }
+            }
+            if (Mathf.Sign(facingDirection) != Mathf.Sign(nextWaypoint.position.x - transform.position.x)){
+                facingDirection *= -1;
+                sr.flipX = facingDirection > 0;
             }
         }
         else if (currentState == State.BACK){
-            MoveTowards(wayPoints[currentWaypoint-1]);
-            if (Vector3.Distance(transform.position, wayPoints[currentWaypoint-1].position) <= 1){
+            var nextWaypoint = wayPoints[currentWaypoint-1];
+            MoveTowards(nextWaypoint);
+            if (Vector3.Distance(transform.position, nextWaypoint.position) <= 1){
                 currentWaypoint--;
                 if (currentWaypoint == 0){
                     currentState = State.WITHSTUFF;
@@ -77,6 +86,10 @@ public class NpcScripts : MonoBehaviour
                         child.SetActive(true);
                     }
                 }
+            }
+            if (Mathf.Sign(facingDirection) != Mathf.Sign(nextWaypoint.position.x - transform.position.x)){
+                facingDirection *= -1;
+                sr.flipX = facingDirection > 0;
             }
         }
         else if (currentState == State.WITHSTUFF){
@@ -97,14 +110,23 @@ public class NpcScripts : MonoBehaviour
                     
                 }
             }
+            if (Mathf.Sign(facingDirection) != Mathf.Sign(nextWaypoint.position.x - transform.position.x)){
+                facingDirection *= -1;
+                sr.flipX = facingDirection > 0;
+            }
         }
         else if (currentState == State.HOME){
             // Hover
             int idx = (currentHoverPoint+1) % hoverPoints.Length;
-            MoveTowards(hoverPoints[idx]);
-            if (Vector3.Distance(transform.position, hoverPoints[idx].position) <= 1){
+            var nextWaypoint = hoverPoints[idx];
+            MoveTowards(nextWaypoint);
+            if (Vector3.Distance(transform.position, nextWaypoint.position) <= 1){
                 currentHoverPoint = idx;
                 // FOREVAH
+            }
+            if (Mathf.Sign(facingDirection) != Mathf.Sign(nextWaypoint.position.x - transform.position.x)){
+                facingDirection *= -1;
+                sr.flipX = facingDirection > 0;
             }
         }
     }
