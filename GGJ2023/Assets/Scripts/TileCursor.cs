@@ -78,8 +78,8 @@ public class TileCursor : MonoBehaviour
 		if (snap && !locked)
 		{
             newPos = rootsTilemap.tilemap.CellToWorld(tilePos);
-            newPos.x += 2;
-            newPos.y += 2;
+            newPos.x += 1;
+            newPos.y += 1;
             newPos.z = rootsTilemap.transform.position.z;
 
             if (transform.position != newPos)
