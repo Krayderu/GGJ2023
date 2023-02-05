@@ -11,6 +11,7 @@ public class NpcScripts : MonoBehaviour
     [SerializeField] private int rootsThreshold = 10;
     [SerializeField] private int minimumRoots = 0;
     [SerializeField] private string roomTag;
+    [SerializeField] private Transform roomHeight;
 
     private int currentWaypoint = 0;
     private int currentHoverPoint = 0;
@@ -58,11 +59,9 @@ public class NpcScripts : MonoBehaviour
                 currentHoverPoint = idx;
                 
                 // Wait (polish)
-                // Flip sprite
+
                 if (rootsPlaced >= rootsThreshold && currentHoverPoint == 0){
                     currentState = State.BACK;
-                    // TODO Flip sprite horizontally
-                    //sr.flipX = false;
                 }
             }
             if (Mathf.Sign(facingDirection) != Mathf.Sign(nextWaypoint.position.x - transform.position.x)){
@@ -85,6 +84,9 @@ public class NpcScripts : MonoBehaviour
                         var child = transform.GetChild(0).gameObject;
                         child.SetActive(true);
                     }
+
+                    // move camera over ground:
+                    GameManager.Instance.cameraController.moveToY(roomHeight.position.y);
                 }
             }
             if (Mathf.Sign(facingDirection) != Mathf.Sign(nextWaypoint.position.x - transform.position.x)){
@@ -103,6 +105,7 @@ public class NpcScripts : MonoBehaviour
                     currentState = State.HOME;
                     // fill room
                     fillRoom(roomTag);
+                    // hide box
                     if (transform.childCount > 0){
                         var child = transform.GetChild(0).gameObject;
                         child.SetActive(false);
@@ -152,7 +155,7 @@ public class NpcScripts : MonoBehaviour
                 if (meshRenderer) meshRenderer.material = material;
             }
 
-            //obj.enabled = true;
+            //show sprite and if there is the child light
             var sr = obj.GetComponent<SpriteRenderer>();
             if (sr){
                 sr.enabled = true;

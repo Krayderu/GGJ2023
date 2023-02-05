@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField] private TileData[] tileTypes;
     [SerializeField] private RootsTilemap rootsTilemap;
+    public CameraController cameraController;
 
     public static GameManager Instance { get; private set; }
 
