@@ -111,8 +111,9 @@ public class NpcScripts : MonoBehaviour
             Debug.Log(obj);
             var materialChanger = obj.GetComponent<MaterialToChangeTo>();
             if (materialChanger){
+                Debug.Log(materialChanger);
                 var meshRenderer = obj.GetComponent<MeshRenderer>();
-                if (meshRenderer) meshRenderer.materials[0] = materialChanger.materialToChangeTo;
+                if (meshRenderer) meshRenderer.materials[0] = Resources.Load<Material>(materialChanger.materialToChangeTo.name);
             }
 
             //obj.enabled = true;
