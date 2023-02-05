@@ -3,7 +3,47 @@ guid: d6a98748ec788fd4d91169b16010f27c
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: armoire_base_arrmoireMat
+    second: {fileID: 2100000, guid: 8f451d6ff14fd5d46b933d948ec47158, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: armoire_group5_pCube53Mat
+    second: {fileID: 2100000, guid: 8f451d6ff14fd5d46b933d948ec47158, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: armoire_group5_pCube56Mat
+    second: {fileID: 2100000, guid: 8f451d6ff14fd5d46b933d948ec47158, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: armoire_group5_pCube57Mat
+    second: {fileID: 2100000, guid: 8f451d6ff14fd5d46b933d948ec47158, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: armoire_pCube58_group5Mat
+    second: {fileID: 2100000, guid: 8f451d6ff14fd5d46b933d948ec47158, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: etagere_3_group4_armoireMat
+    second: {fileID: 2100000, guid: 8f451d6ff14fd5d46b933d948ec47158, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: group4_armoire_etagere_1Mat
+    second: {fileID: 2100000, guid: 8f451d6ff14fd5d46b933d948ec47158, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: group4_armoire_etagere_2Mat
+    second: {fileID: 2100000, guid: 8f451d6ff14fd5d46b933d948ec47158, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

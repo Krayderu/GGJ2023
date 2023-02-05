@@ -43,6 +43,22 @@ public class TileCursor : MonoBehaviour
             spriteRenderer.color = new Color(1f,1f,1f,.5f);
         }
 
+        // detect scroll
+        // Vector2 vec = Input.Mouse.current.scroll.ReadValue();
+        // var scroll = vec.y;
+        if(Input.GetAxisRaw("Mouse ScrollWheel") > 0)
+        {
+            //wheel goes up
+            currentRotation = (currentRotation-1) % 4;
+            transform.Rotate(new Vector3(0, 0, -90));
+        }
+        else if(Input.GetAxisRaw("Mouse ScrollWheel") < 0)
+        {
+            //wheel goes down
+            currentRotation = (currentRotation+1) % 4;
+            transform.Rotate(new Vector3(0, 0, 90));
+        }
+
         if(Input.GetKeyDown(KeyCode.R)){
             currentRotation++;
             if (currentRotation > 3){

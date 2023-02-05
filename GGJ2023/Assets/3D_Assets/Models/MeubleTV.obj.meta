@@ -3,7 +3,32 @@ guid: 54728e2c00e5d3546b438bbde8066e1f
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: base_meuble_TV_meuble_TVMat
+    second: {fileID: 2100000, guid: 750be498fa37599408229bfd55ed499d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meuble_TV_pieds1Mat
+    second: {fileID: 2100000, guid: 750be498fa37599408229bfd55ed499d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meuble_TV_pieds2Mat
+    second: {fileID: 2100000, guid: 750be498fa37599408229bfd55ed499d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meuble_TV_pieds3Mat
+    second: {fileID: 2100000, guid: 750be498fa37599408229bfd55ed499d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: meuble_TV_pieds4Mat
+    second: {fileID: 2100000, guid: 750be498fa37599408229bfd55ed499d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
