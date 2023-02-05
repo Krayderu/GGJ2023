@@ -23,6 +23,7 @@ public class NpcScripts : MonoBehaviour
 
     private void Start(){
         sr = GetComponent<SpriteRenderer>();
+        transform.position = wayPoints[0].position;
         //lastRotation = transform.rotation;
     }
     
@@ -107,18 +108,22 @@ public class NpcScripts : MonoBehaviour
 
     private void fillRoom(string tag){
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag(tag)){
+            Debug.Log(obj);
             var materialChanger = obj.GetComponent<MaterialToChangeTo>();
-            if (!materialChanger) return;
-
-            var meshRenderer = obj.GetComponent<MeshRenderer>();
-            if (meshRenderer) meshRenderer.materials[0] = materialChanger.materialToChangeTo;
+            if (materialChanger){
+                Debug.Log(materialChanger);
+                var meshRenderer = obj.GetComponent<MeshRenderer>();
+                if (meshRenderer) meshRenderer.materials[0] = Resources.Load<Material>(materialChanger.materialToChangeTo.name);
+            }
 
             //obj.enabled = true;
             var sr = obj.GetComponent<SpriteRenderer>();
             if (sr){
                 sr.enabled = true;
-                var light = obj.transform.GetChild(0).gameObject;
-                if (light) light.SetActive(true);
+                if (obj.transform.childCount > 0){
+                    var light = obj.transform.GetChild(0).gameObject;
+                    light.SetActive(true);
+                }
             }
         }
     }
