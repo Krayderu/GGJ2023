@@ -21,6 +21,8 @@ public class NpcScripts : MonoBehaviour
     //private int facingDirection = 1;
     //private Quaternion lastRotation;
 
+    //private Dictionary<string, Material> materials
+
     private void Start(){
         sr = GetComponent<SpriteRenderer>();
         transform.position = wayPoints[0].position;
@@ -111,9 +113,12 @@ public class NpcScripts : MonoBehaviour
             Debug.Log(obj);
             var materialChanger = obj.GetComponent<MaterialToChangeTo>();
             if (materialChanger){
-                Debug.Log(materialChanger);
+                Debug.Log("Changing to " + materialChanger.materialToChangeTo.name);
+                // load material
+                var material = Resources.Load<Material>(materialChanger.materialToChangeTo.name);
+                Debug.Log(material);
                 var meshRenderer = obj.GetComponent<MeshRenderer>();
-                if (meshRenderer) meshRenderer.materials[0] = Resources.Load<Material>(materialChanger.materialToChangeTo.name);
+                if (meshRenderer) meshRenderer.material = material;
             }
 
             //obj.enabled = true;
