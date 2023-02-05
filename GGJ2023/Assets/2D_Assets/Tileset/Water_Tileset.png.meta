@@ -120,7 +120,7 @@ TextureImporter:
       name: Water_Tileset_0
       rect:
         serializedVersion: 2
-        x: 512
+        x: 0
         y: 2050
         width: 512
         height: 512
@@ -141,7 +141,7 @@ TextureImporter:
       name: Water_Tileset_1
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 512
         y: 2050
         width: 512
         height: 512
@@ -162,7 +162,7 @@ TextureImporter:
       name: Water_Tileset_2
       rect:
         serializedVersion: 2
-        x: 1536
+        x: 1024
         y: 2050
         width: 512
         height: 512
@@ -183,8 +183,8 @@ TextureImporter:
       name: Water_Tileset_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1538
+        x: 1536
+        y: 2050
         width: 512
         height: 512
       alignment: 0
@@ -204,7 +204,7 @@ TextureImporter:
       name: Water_Tileset_4
       rect:
         serializedVersion: 2
-        x: 512
+        x: 0
         y: 1538
         width: 512
         height: 512
@@ -225,7 +225,7 @@ TextureImporter:
       name: Water_Tileset_5
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 512
         y: 1538
         width: 512
         height: 512
@@ -246,7 +246,7 @@ TextureImporter:
       name: Water_Tileset_6
       rect:
         serializedVersion: 2
-        x: 1536
+        x: 1024
         y: 1538
         width: 512
         height: 512
@@ -267,7 +267,7 @@ TextureImporter:
       name: Water_Tileset_7
       rect:
         serializedVersion: 2
-        x: 2048
+        x: 1536
         y: 1538
         width: 512
         height: 512
@@ -288,8 +288,8 @@ TextureImporter:
       name: Water_Tileset_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1026
+        x: 2048
+        y: 1538
         width: 512
         height: 512
       alignment: 0
@@ -309,7 +309,7 @@ TextureImporter:
       name: Water_Tileset_9
       rect:
         serializedVersion: 2
-        x: 512
+        x: 0
         y: 1026
         width: 512
         height: 512
@@ -330,7 +330,7 @@ TextureImporter:
       name: Water_Tileset_10
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 512
         y: 1026
         width: 512
         height: 512
@@ -351,7 +351,7 @@ TextureImporter:
       name: Water_Tileset_11
       rect:
         serializedVersion: 2
-        x: 1536
+        x: 1024
         y: 1026
         width: 512
         height: 512
@@ -372,7 +372,7 @@ TextureImporter:
       name: Water_Tileset_12
       rect:
         serializedVersion: 2
-        x: 2048
+        x: 1536
         y: 1026
         width: 512
         height: 512
@@ -393,8 +393,8 @@ TextureImporter:
       name: Water_Tileset_13
       rect:
         serializedVersion: 2
-        x: 0
-        y: 514
+        x: 2048
+        y: 1026
         width: 512
         height: 512
       alignment: 0
@@ -414,7 +414,7 @@ TextureImporter:
       name: Water_Tileset_14
       rect:
         serializedVersion: 2
-        x: 512
+        x: 0
         y: 514
         width: 512
         height: 512
@@ -435,7 +435,7 @@ TextureImporter:
       name: Water_Tileset_15
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 512
         y: 514
         width: 512
         height: 512
@@ -456,7 +456,7 @@ TextureImporter:
       name: Water_Tileset_16
       rect:
         serializedVersion: 2
-        x: 1536
+        x: 1024
         y: 514
         width: 512
         height: 512
@@ -477,7 +477,7 @@ TextureImporter:
       name: Water_Tileset_17
       rect:
         serializedVersion: 2
-        x: 2048
+        x: 1536
         y: 514
         width: 512
         height: 512
@@ -498,8 +498,8 @@ TextureImporter:
       name: Water_Tileset_18
       rect:
         serializedVersion: 2
-        x: 0
-        y: 2
+        x: 2048
+        y: 514
         width: 512
         height: 512
       alignment: 0
@@ -519,7 +519,7 @@ TextureImporter:
       name: Water_Tileset_19
       rect:
         serializedVersion: 2
-        x: 512
+        x: 0
         y: 2
         width: 512
         height: 512
@@ -540,7 +540,7 @@ TextureImporter:
       name: Water_Tileset_20
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 512
         y: 2
         width: 512
         height: 512
@@ -561,7 +561,7 @@ TextureImporter:
       name: Water_Tileset_21
       rect:
         serializedVersion: 2
-        x: 1536
+        x: 1024
         y: 2
         width: 512
         height: 512
@@ -582,7 +582,7 @@ TextureImporter:
       name: Water_Tileset_22
       rect:
         serializedVersion: 2
-        x: 2048
+        x: 1536
         y: 2
         width: 512
         height: 512
@@ -595,6 +595,27 @@ TextureImporter:
       bones: []
       spriteID: 70d4c79d8119546459c2cd2aafae4672
       internalID: -1343241808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_Tileset_23
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 2
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cfba60174e77d64c8e9d9eb2c29ad63
+      internalID: 1759233740
       vertices: []
       indices: 
       edges: []
@@ -612,6 +633,7 @@ TextureImporter:
     nameFileIdTable:
       Water_Tileset_13: -1587729180
       Water_Tileset_22: -1343241808
+      Water_Tileset_23: 1759233740
       Water_Tileset_16: -140673045
       Water_Tileset_2: 1255592664
       Water_Tileset_11: -1469715788
