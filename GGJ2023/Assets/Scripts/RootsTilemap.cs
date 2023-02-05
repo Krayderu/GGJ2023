@@ -5,8 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class RootsTilemap : MonoBehaviour
 {
-    [SerializeField] public const int width = 14;
-    [SerializeField] public const int height = 64;
+    public const int width = 8;
+    public const int height = 16;
     [SerializeField] private Texture2D rootTileset;
     [SerializeField] private Tilemap waterTilemap;
     
