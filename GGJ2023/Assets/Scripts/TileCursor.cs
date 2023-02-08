@@ -19,33 +19,31 @@ public class TileCursor : MonoBehaviour
 	void Start()
 	{
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        Debug.Log(spriteRenderer);
 		lastPosition = transform.position;
         currentTile = GameManager.Instance.GetNextTile();
         spriteRenderer.sprite = currentTile.sprite;
         startRotation = transform.rotation;
-        //Debug.Log(currentTile);
 	}
 
     // Update is called once per frame
     void Update()
     {
+        if (locked) return;
 
         Vector3 newPos = lastPosition;
-        Vector3 point = rootsTilemap.GetMouseWorldPosition();
-        Vector3Int tilePos = rootsTilemap.tilemap.WorldToCell(point);
+        Vector3 mousePos = rootsTilemap.GetMouseWorldPosition();
+        Vector3Int tilePos = rootsTilemap.tilemap.WorldToCell(mousePos);
 
         if (rootsTilemap.IsTileBuildable(tilePos, currentTile, currentRotation)){
-            //spriteRenderer.enabled = true;
             spriteRenderer.color = new Color(1f,1f,1f,1f);
             snap = true;
         } else {
-            //spriteRenderer.enabled = false;
             spriteRenderer.color = new Color(1f,1f,1f,.5f);
             snap = false;
         }
 
-        if (point.y > 0){
+        // don't show above the horizon
+        if (mousePos.y > -1){
             spriteRenderer.enabled = false;
         } else {
             spriteRenderer.enabled = true;
@@ -75,8 +73,7 @@ public class TileCursor : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, 90));
         }
 
-		if (snap && !locked)
-		{
+		if (snap) {
             newPos = rootsTilemap.tilemap.CellToWorld(tilePos);
             newPos.x += 1;
             newPos.y += 1;
@@ -87,26 +84,23 @@ public class TileCursor : MonoBehaviour
                 transform.position = newPos;
                 lastPosition = newPos;
             }
-		}
-
-        if (!snap && !locked){
-            var mousePos = rootsTilemap.GetMouseWorldPosition();
+		} else {
             transform.position = mousePos;
             lastPosition = mousePos;
         }
 
-        // ON CLICK
-        if (!Input.GetMouseButtonDown(0) || !GameManager.Instance.CanPay()) return;
+        // ON CLICK if player can pay and can build
+        if (!(Input.GetMouseButtonDown(0) && GameManager.Instance.CanPay() && rootsTilemap.IsTileBuildable(tilePos, currentTile, currentRotation))) return;
 
         GameManager.Instance.Pay();
 
         rootsTilemap.PlaceTile(currentTile, tilePos, currentRotation);
 
         currentTile = GameManager.Instance.GetNextTile();
+        // update appearance and reset rotation
         spriteRenderer.sprite = currentTile.sprite;
         currentRotation = 0;
         transform.rotation = startRotation;
-    
     }
 
 

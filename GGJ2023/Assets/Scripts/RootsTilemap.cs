@@ -5,8 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class RootsTilemap : MonoBehaviour
 {
-    [SerializeField] public const int width = 14;
-    [SerializeField] public const int height = 64;
+    [SerializeField] private int width = 14;
+    [SerializeField] private int height = 64;
     [SerializeField] private Texture2D rootTileset;
     [SerializeField] private Tilemap waterTilemap;
     
@@ -24,7 +24,6 @@ public class RootsTilemap : MonoBehaviour
 
         var path = rootTileset.name;
         Sprite[] tileSprites = Resources.LoadAll<Sprite>(path);
-
         Sprite matchingSprite = tileSprites[0];
 
 		// find the sprite
@@ -70,7 +69,7 @@ public class RootsTilemap : MonoBehaviour
         if (tilePos.x >= width/2) return false;
         if (tilePos.x < -width/2) return false;
         
-        if(!GameManager.Instance.CanPay()) return false;
+        //if(!GameManager.Instance.CanPay()) return false;
 
         // check that the tile can connect to another root tile
         bool canConnect = false;
@@ -102,9 +101,9 @@ public class RootsTilemap : MonoBehaviour
 
             bool[] neighborConnections = neighborTile.data.edges;
 
+            // that condition was not easy to find.
             int neighborIndex = (i + neighborTile.rotation) % 4;
             int selfIndex = (i + rotation) % 4;
-
             if (neighborConnections[connectionIndices[neighborIndex]] && data.edges[selfIndex]){
                 // The current tile and the neighbor tile can be connected
                 canConnect = true;
