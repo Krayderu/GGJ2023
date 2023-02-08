@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18349968, g: 0.2290597, b: 0.30574813, a: 1}
+  m_IndirectSpecularColor: {r: 0.18349943, g: 0.22905919, b: 0.30574673, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4028,7 +4028,9 @@ MonoBehaviour:
   rootsTilemap: {fileID: 1152777100}
   cameraController: {fileID: 1158840164}
   water: 100
-  rootCost: 10
+  rootCost: 5
+  currentTileType: {fileID: 11400000, guid: 512f70dfd13f4134c8dcd5e1c592232d, type: 2}
+  nextTileType: {fileID: 0}
 --- !u!4 &795575221
 Transform:
   m_ObjectHideFlags: 0
@@ -5992,7 +5994,7 @@ PrefabInstance:
     - target: {fileID: 1239290008048404480, guid: 93c6a435e67e24c2aa3f51ee51a7bfd8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 191993ea7674748e88c09cf78d5e78d3, type: 2}
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 1239290008265108130, guid: 93c6a435e67e24c2aa3f51ee51a7bfd8, type: 3}
       propertyPath: m_TileSpriteArray.Array.size
       value: 18
@@ -9991,6 +9993,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4464527550311716992, guid: ba7c2ea1f712e55458739c4d96458730, type: 3}
+      propertyPath: rootsTilemap
+      value: 
+      objectReference: {fileID: 1152777100}
     - target: {fileID: 8103160354799644961, guid: ba7c2ea1f712e55458739c4d96458730, type: 3}
       propertyPath: m_Name
       value: Canvas

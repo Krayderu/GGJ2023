@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance { get; private set; }
 
     public int water = 100;
-    [SerializeField] private int rootCost = 10;
+    [SerializeField] private float rootCost = 10f;
+    public TileData currentTileType;
+    public TileData nextTileType;
 
     private void Awake()
     { 
@@ -29,6 +31,9 @@ public class GameManager : MonoBehaviour {
     private void Start()
     {
         StartCoroutine(everySecond());
+
+        currentTileType = tileTypes[0];
+        nextTileType = tileTypes[0];
     }
 
     IEnumerator everySecond() {
@@ -39,8 +44,14 @@ public class GameManager : MonoBehaviour {
     }
 
     public TileData GetNextTile(){
+        currentTileType = nextTileType;
+
         int randomIndex = Random.Range(0, tileTypes.Length);
-        return tileTypes[randomIndex];
+        TileData newTileType = tileTypes[randomIndex];
+
+        nextTileType = newTileType;
+
+        return newTileType;
     }
 
     private void DoResources(){
@@ -50,7 +61,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public bool CanPay(){
-        if (water - rootCost < 0) return false;
+        if (water - GetPrice(GetNumberOfRoots()) < 0) return false;
         return true;
     }
 
@@ -59,10 +70,15 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Can't pay but pays anyway !!! Someone took advantage of a loophole ! BE THEY DAMNED !");
             return;
         }
-        water = water - rootCost;
+        Debug.Log(GetPrice(GetNumberOfRoots()));
+        water = water - GetPrice(GetNumberOfRoots());
     }
 
     public int GetNumberOfRoots(){
         return rootsTilemap.GetNumberOfRoots();
+    }
+
+    public int GetPrice(int n){
+        return (int)Mathf.Floor(rootCost/2 * Mathf.Pow(n, 1.05f));
     }
 }

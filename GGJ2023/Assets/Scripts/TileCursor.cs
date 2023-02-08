@@ -6,10 +6,8 @@ public class TileCursor : MonoBehaviour
 {
     [SerializeField] private RootsTilemap rootsTilemap;
 
-
     private bool locked = false;
 	private Vector3 lastPosition;
-    private TileData currentTile;
     private SpriteRenderer spriteRenderer;
     public int currentRotation = 0;
     private Quaternion startRotation;
@@ -20,8 +18,7 @@ public class TileCursor : MonoBehaviour
 	{
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 		lastPosition = transform.position;
-        currentTile = GameManager.Instance.GetNextTile();
-        spriteRenderer.sprite = currentTile.sprite;
+        spriteRenderer.sprite = GameManager.Instance.currentTileType.sprite;
         startRotation = transform.rotation;
 	}
 
@@ -34,7 +31,7 @@ public class TileCursor : MonoBehaviour
         Vector3 mousePos = rootsTilemap.GetMouseWorldPosition();
         Vector3Int tilePos = rootsTilemap.tilemap.WorldToCell(mousePos);
 
-        if (rootsTilemap.IsTileBuildable(tilePos, currentTile, currentRotation)){
+        if (rootsTilemap.IsTileBuildable(tilePos, GameManager.Instance.currentTileType, currentRotation) && GameManager.Instance.CanPay()){
             spriteRenderer.color = new Color(1f,1f,1f,1f);
             snap = true;
         } else {
@@ -65,11 +62,9 @@ public class TileCursor : MonoBehaviour
         //     transform.Rotate(new Vector3(0, 0, 90));
         // }
 
+        // rotate the piece with right click
         if(Input.GetMouseButtonDown(1)){ // right click
-            currentRotation++;
-            if (currentRotation > 3){
-                currentRotation = 0;
-            }
+            currentRotation = (currentRotation + 1) % 4;
             transform.Rotate(new Vector3(0, 0, 90));
         }
 
@@ -90,21 +85,21 @@ public class TileCursor : MonoBehaviour
         }
 
         // ON CLICK if player can pay and can build
-        if (!(Input.GetMouseButtonDown(0) && GameManager.Instance.CanPay() && rootsTilemap.IsTileBuildable(tilePos, currentTile, currentRotation))) return;
+        if (!(Input.GetMouseButtonDown(0) && GameManager.Instance.CanPay() && rootsTilemap.IsTileBuildable(tilePos, GameManager.Instance.currentTileType, currentRotation))) return;
 
         GameManager.Instance.Pay();
 
-        rootsTilemap.PlaceTile(currentTile, tilePos, currentRotation);
+        rootsTilemap.PlaceTile(GameManager.Instance.currentTileType, tilePos, currentRotation);
 
-        currentTile = GameManager.Instance.GetNextTile();
+        GameManager.Instance.GetNextTile();
         // update appearance and reset rotation
-        spriteRenderer.sprite = currentTile.sprite;
+        spriteRenderer.sprite = GameManager.Instance.currentTileType.sprite;
         currentRotation = 0;
         transform.rotation = startRotation;
     }
 
 
-	public void LockPosition(bool value)
+	public void Lock(bool value)
 	{
 		locked = value;
 	}
