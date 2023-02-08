@@ -5,8 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class RootsTilemap : MonoBehaviour
 {
-    [SerializeField] public const int width = 14;
-    [SerializeField] public const int height = 64;
+    [SerializeField] private int width = 14;
+    [SerializeField] private int height = 64;
     [SerializeField] private Texture2D rootTileset;
     [SerializeField] private Tilemap waterTilemap;
     
@@ -16,24 +16,13 @@ public class RootsTilemap : MonoBehaviour
     void Start()
     {
         tilemap = gameObject.GetComponent<Tilemap>();
-        Debug.Log(GetNumberOfRoots());
+        //Debug.Log(GetNumberOfRoots());
     }
 
     public void PlaceTile(TileData tileData, Vector3Int pos, int rotation){
-        if (!IsTileBuildable(pos, tileData, rotation)) return;
+        //if (!IsTileBuildable(pos, tileData, rotation)) return;
 
-        var path = rootTileset.name;
-        Sprite[] tileSprites = Resources.LoadAll<Sprite>(path);
-
-        Sprite matchingSprite = tileSprites[0];
-
-		// find the sprite
-		foreach (Sprite sprite in tileSprites){
-			if (sprite.name == tileData.sprite.name){
-				matchingSprite = sprite;
-				break;
-			}
-		}
+        Sprite matchingSprite = GetRootSpriteByName(tileData.sprite.name);
 
         RootTile tile = ScriptableObject.CreateInstance<RootTile>();
 		tile.sprite = matchingSprite;
@@ -47,16 +36,14 @@ public class RootsTilemap : MonoBehaviour
     }
 
     public Vector3 GetMouseWorldPosition(){
-        // FIXME: I should be in TileCursor.cs
+        // Get the position on the tilemap that the mouse is pointing to
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Plane plane = new Plane(Camera.main.transform.forward, transform.position);
-        if (plane.Raycast(ray, out float distance))
-        {
+        if (plane.Raycast(ray, out float distance)) {
             Vector3 hitPoint = ray.GetPoint(distance);
             return hitPoint;
         }
-        else
-        {
+        else {
             return Vector3.zero;
         }
     }
@@ -70,7 +57,7 @@ public class RootsTilemap : MonoBehaviour
         if (tilePos.x >= width/2) return false;
         if (tilePos.x < -width/2) return false;
         
-        if(!GameManager.Instance.CanPay()) return false;
+        //if(!GameManager.Instance.CanPay()) return false;
 
         // check that the tile can connect to another root tile
         bool canConnect = false;
@@ -102,9 +89,9 @@ public class RootsTilemap : MonoBehaviour
 
             bool[] neighborConnections = neighborTile.data.edges;
 
+            // that condition was not easy to find.
             int neighborIndex = (i + neighborTile.rotation) % 4;
             int selfIndex = (i + rotation) % 4;
-
             if (neighborConnections[connectionIndices[neighborIndex]] && data.edges[selfIndex]){
                 // The current tile and the neighbor tile can be connected
                 canConnect = true;
@@ -135,6 +122,22 @@ public class RootsTilemap : MonoBehaviour
             }
         }
         return wateredRoots;
+    }
+
+    public Sprite GetRootSpriteByName(string name){
+        string path = rootTileset.name;
+        Sprite[] tileSprites = Resources.LoadAll<Sprite>(path);
+        Sprite matchingSprite = tileSprites[0];
+
+		// find the sprite
+		foreach (Sprite sprite in tileSprites){
+			if (sprite.name == name){
+				matchingSprite = sprite;
+				return matchingSprite;
+			}
+		}
+
+        return null;
     }
 
 }
