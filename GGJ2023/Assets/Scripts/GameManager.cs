@@ -70,7 +70,6 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Can't pay but pays anyway !!! Someone took advantage of a loophole ! BE THEY DAMNED !");
             return;
         }
-        Debug.Log(GetPrice(GetNumberOfRoots()));
         water = water - GetPrice(GetNumberOfRoots());
     }
 
@@ -79,6 +78,6 @@ public class GameManager : MonoBehaviour {
     }
 
     public int GetPrice(int n){
-        return (int)Mathf.Floor(rootCost/2 * Mathf.Pow(n, 1.05f));
+        return (int)Mathf.Floor(rootCost * Mathf.Pow(1.06f, n));
     }
 }
