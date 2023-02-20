@@ -8,6 +8,7 @@ public class NpcScripts : MonoBehaviour
 {
     [SerializeField] private Transform[] wayPoints;
     [SerializeField] private Transform[] hoverPoints;
+    [SerializeField] private float DistanceThreshold = 0.5f;
     [SerializeField] private int rootsThreshold = 10;
     [SerializeField] private int minimumRoots = 15;
     [SerializeField] private string roomTag;
@@ -40,7 +41,7 @@ public class NpcScripts : MonoBehaviour
         if (currentState == State.GOING){
             var nextWaypoint = wayPoints[currentWaypoint+1];
             MoveTowards(nextWaypoint);
-            if (Vector3.Distance(transform.position, nextWaypoint.position) <= 1){
+            if (Vector3.Distance(transform.position, nextWaypoint.position) <= DistanceThreshold){
                 currentWaypoint++;
                 if (currentWaypoint == wayPoints.Length - 1){
                     currentState = State.HOVER;
@@ -55,7 +56,7 @@ public class NpcScripts : MonoBehaviour
             int idx = (currentHoverPoint+1) % hoverPoints.Length;
             var nextWaypoint = hoverPoints[idx];
             MoveTowards(nextWaypoint);
-            if (Vector3.Distance(transform.position, nextWaypoint.position) <= 1){
+            if (Vector3.Distance(transform.position, nextWaypoint.position) <= DistanceThreshold){
                 currentHoverPoint = idx;
                 
                 // Wait (polish)
@@ -72,7 +73,7 @@ public class NpcScripts : MonoBehaviour
         else if (currentState == State.BACK){
             var nextWaypoint = wayPoints[currentWaypoint-1];
             MoveTowards(nextWaypoint);
-            if (Vector3.Distance(transform.position, nextWaypoint.position) <= 1){
+            if (Vector3.Distance(transform.position, nextWaypoint.position) <= DistanceThreshold){
                 currentWaypoint--;
                 if (currentWaypoint == 0){
                     currentState = State.WITHSTUFF;
@@ -99,7 +100,7 @@ public class NpcScripts : MonoBehaviour
             // do the same as GOING
             var nextWaypoint = wayPoints[currentWaypoint+1];
             MoveTowards(nextWaypoint);
-            if (Vector3.Distance(transform.position, nextWaypoint.position) <= 1){
+            if (Vector3.Distance(transform.position, nextWaypoint.position) <= DistanceThreshold){
                 currentWaypoint++;
                 if (currentWaypoint == wayPoints.Length - 1){
                     currentState = State.HOME;
@@ -123,7 +124,7 @@ public class NpcScripts : MonoBehaviour
             int idx = (currentHoverPoint+1) % hoverPoints.Length;
             var nextWaypoint = hoverPoints[idx];
             MoveTowards(nextWaypoint);
-            if (Vector3.Distance(transform.position, nextWaypoint.position) <= 1){
+            if (Vector3.Distance(transform.position, nextWaypoint.position) <= DistanceThreshold){
                 currentHoverPoint = idx;
                 // FOREVAH
             }

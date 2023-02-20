@@ -1035,6 +1035,7 @@ MonoBehaviour:
   - {fileID: 140356191}
   - {fileID: 625828943}
   - {fileID: 456061059}
+  DistanceThreshold: 0.5
   rootsThreshold: 25
   minimumRoots: 15
   roomTag: Room2
@@ -1246,7 +1247,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242098534}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1609,7 +1610,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 298852555}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -3456,7 +3457,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 637963242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.6, y: 2.24, z: 13.18}
+  m_LocalPosition: {x: -16.16, y: 2.24, z: 13.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4722,7 +4723,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 897779662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.17, y: 2.24, z: 13.18}
+  m_LocalPosition: {x: -16.69, y: 2.24, z: 13.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5734,6 +5735,7 @@ MonoBehaviour:
   - {fileID: 1619034162}
   - {fileID: 1680602823}
   - {fileID: 1396995200}
+  DistanceThreshold: 0.5
   rootsThreshold: 10
   minimumRoots: 5
   roomTag: Room1
@@ -8552,7 +8554,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1364694740}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.01, y: 2.24, z: 12.97}
+  m_LocalPosition: {x: 5.28, y: 2.24, z: 13.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9767,6 +9769,7 @@ MonoBehaviour:
   - {fileID: 2035120977}
   - {fileID: 976608561}
   - {fileID: 199945935}
+  DistanceThreshold: 0.5
   rootsThreshold: 100
   minimumRoots: 55
   roomTag: Room4
@@ -10558,7 +10561,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653844987}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.42, y: 2.24, z: 16.62}
+  m_LocalPosition: {x: -2.46, y: 2.24, z: 14.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11508,6 +11511,7 @@ MonoBehaviour:
   - {fileID: 534776523}
   - {fileID: 1547782046}
   - {fileID: 1916204104}
+  DistanceThreshold: 0.5
   rootsThreshold: 50
   minimumRoots: 30
   roomTag: Room3
@@ -12133,7 +12137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &2011641145
 SphereCollider:
   m_ObjectHideFlags: 0
