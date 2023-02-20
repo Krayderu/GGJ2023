@@ -8,6 +8,7 @@ TagManager:
   - Room2
   - Room3
   - Room4
+  - Veste
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Water
   - UI
   - Sprite
-  - 
+  - PostProcess
   - 
   - 
   - 
